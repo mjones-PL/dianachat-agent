@@ -1,0 +1,25 @@
+PriceLogic Technology: 
+PriceLogic’s technology is based on its Cognitive Architecture platform. PriceLogic’s cognitive architecture functions as a unified intelligence system that coordinates multiple specialized AI agents, each maintaining independent decision-making capabilities while sharing a common understanding of your business.
+
+PriceLogic Technology 1. 
+The Brain Center (Knowledge Hub) - The central intelligence that connects all agent activities with real-time integration with Amazon data. The Brain Center learns dynamically from past decisions and outcomes.
+
+PriceLogic Technology 2. 
+Specialized Agents (Agent Domain): Each agent masters a specific role (pricing, inventory, support). Insights are shared across the team for enhanced decision-making. Agents operate autonomously but are coordinated.
+
+PriceLogic Technology 3. 
+Safety and Control (Guardrails): Rule-based constraints and detailed audit trails ensure responsible and traceable actions. Simple controls allow users to review, pause, or override decisions at any time.
+
+Agentic Team Member 1. 
+The Price Agent - Constantly watches your competition and keeps you competitive. Handles all pricing strategies based on your goals. Scans and analyzes competitor pricing, adjusts your pricing automatically based on rules and strategies you define and helps you stay competitive without manual monitoring
+
+Agentic Team Member 2
+The Inventory Agent - Tracks stock levels in real time, predicts trends and ensures optimal stock levels. Prevents costly stockouts or excess inventory.
+
+Agentic Team Member 3
+The Customer Care Agent - Your 24/7 defender of seller reputation, monitoring product reviews, handling seller feedback, and automating FBA inbound reconciliations for missing inventory. 
+
+Agentic Team Member 4
+The Marketplace Agent - Maintains consistency across platforms, syncing listings and managing product details for a strong brand presence.
+
+

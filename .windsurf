@@ -1,0 +1,24 @@
+{
+  "name": "dianachat-agent",
+  "type": "python",
+  "root": "/Users/mjones/code/pricelogic/Repos/dianachat/dianachat-agent",
+  "rules": ".windsurfrules",
+  "excludes": [
+    "__pycache__",
+    "*.pyc",
+    ".pytest_cache",
+    ".coverage",
+    "dist",
+    "build",
+    ".venv",
+    "*.egg-info"
+  ],
+  "search_paths": [
+    "src/dianachat_agent",
+    "tests"
+  ],
+  "package_manager": "poetry",
+  "test_command": "poetry run pytest",
+  "build_command": "poetry build",
+  "dev_command": "poetry run uvicorn dianachat_agent.main:app --reload"
+}

@@ -1,0 +1,143 @@
+# DianaChat Agent Windsurf Rules
+
+<project>
+- This is a Python-based AI agent for DianaChat
+- Refer to the project as "DianaChat Agent"
+- Part of the DianaChat platform
+- Handles natural language processing and chat interactions
+- Integrates with the front-end via API
+</project>
+
+<tech_stack>
+- Python 3.11+
+- FastAPI for API endpoints
+- SQLAlchemy for ORM
+- PostgreSQL for database
+- Pydantic for validation
+- pytest for testing
+- Poetry for dependency management
+- OpenAI for LLM integration
+- Hugging Face for models
+- Redis for caching
+</tech_stack>
+
+<prompt_response_rules>
+1. Write "beep." 
+2. Review all applicable rules (`global_rules.md`, `AGENT.md`, `.windsurfrules`, `README.md`).
+3. Use the `@web` tool to resolve errors and update your understanding of recent solutions if needed.
+4. Prioritize simplification for feature and scope completion.
+5. Write "boop."
+6. Continue with your response.
+</prompt_response_rules> 
+
+<filesystem>
+- Follow Python package structure
+- Use src-layout pattern
+- Keep modules focused and small
+- Directory structure:
+  - src/dianachat_agent/
+    - api/
+    - models/
+    - services/
+    - utils/
+    - config/
+  - tests/
+  - alembic/
+</filesystem>
+
+<coding>
+- Write type-annotated Python
+- Follow PEP 8 style guide
+- Use async/await for I/O operations
+- Keep functions under 50 lines
+- Use dependency injection
+- Document with docstrings
+- Use dataclasses or Pydantic models
+- Handle errors explicitly
+</coding>
+
+<virtual_environment>
+  1. Operate within the project's dedicated virtual environment ('.venv') to maintain project isolation.
+  2. Install all required packages exclusively within this environment.
+  3. Reference 'requirements.txt' to see what packages are installed.
+</virtual_environment>
+
+<naming>
+- snake_case for files and functions
+- PascalCase for classes
+- UPPER_SNAKE_CASE for constants
+- Use verb prefixes for functions:
+  - get_ for retrievers
+  - create_ for constructors
+  - update_ for modifiers
+  - delete_ for removal
+- Meaningful variable names
+</naming>
+
+<state_management>
+- Use Pydantic settings for config
+- SQLAlchemy for database state
+- Redis for caching
+- Proper connection management
+- Transaction handling
+- Connection pooling
+</state_management>
+
+<deployment>
+- Main branch deploys to production
+- Staging branch deploys to staging
+- Uses GitHub Actions + Flightcontrol
+- Environment variables in Flightcontrol
+- Zero-downtime deployments
+- Automatic rollbacks on failure
+</deployment>
+
+<testing>
+- Use pytest for testing
+- Write unit tests for core logic
+- Integration tests for APIs
+- Mock external services
+- Use fixtures appropriately
+- Maintain high coverage
+- Test async code properly
+</testing>
+
+<optimization>
+- Use async where appropriate
+- Implement proper caching
+- Database query optimization
+- Connection pooling
+- Resource cleanup
+- Memory management
+- Profile performance bottlenecks
+</optimization>
+
+<documentation>
+- Docstrings for all public APIs
+- Keep README updated
+- API documentation with OpenAPI
+- Environment setup guide
+- Architecture decisions
+- Model documentation
+- Usage examples
+</documentation>
+
+<error_handling>
+- Use custom exception classes
+- Proper error logging
+- Graceful degradation
+- Retry mechanisms
+- Circuit breakers
+- Error reporting
+- User-friendly messages
+</error_handling>
+
+<ai_specific>
+- Model versioning
+- Prompt management
+- Response validation
+- Token optimization
+- Temperature control
+- Safety filters
+- Fallback strategies
+</ai_specific>

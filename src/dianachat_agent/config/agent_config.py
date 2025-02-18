@@ -56,10 +56,13 @@ class AgentSettings(BaseModel):
     @classmethod
     def from_env(cls, env_file: str = ".env") -> "AgentSettings":
         """Create settings from environment file."""
+        # Load from env file first
         env_vars = load_env_file(env_file)
         logger.debug(f"Loaded variables from env file: {list(env_vars.keys())}")
         
-        env_vars.update(os.environ)  # System env vars take precedence
+        # System env vars take precedence
+        system_vars = dict(os.environ)
+        env_vars.update(system_vars)
         logger.debug(f"Environment variables after system update: {list(env_vars.keys())}")
         
         def parse_bool(value: str) -> bool:
@@ -69,32 +72,31 @@ class AgentSettings(BaseModel):
         if 'ENABLE_RESPONSE_CACHING' in env_vars:
             env_vars['ENABLE_RESPONSE_CACHING'] = parse_bool(env_vars['ENABLE_RESPONSE_CACHING'])
         
-        # Strip quotes from API keys and other string values
-        for key in env_vars:
-            if isinstance(env_vars[key], str):
-                env_vars[key] = env_vars[key].strip().strip('"').strip("'")
-                if key == 'OPENAI_API_KEY':
-                    logger.debug(f"OpenAI API key loaded, length: {len(env_vars[key])}")
+        # Get OpenAI key directly from environment first, then fallback to env_vars
+        openai_key = os.getenv('OPENAI_API_KEY') or env_vars.get('OPENAI_API_KEY', '')
+        if isinstance(openai_key, str):
+            openai_key = openai_key.strip().strip('"').strip("'")
+        logger.debug(f"OpenAI API key loaded, length: {len(openai_key)}")
         
-        settings = cls(**{
-            'livekit_url': env_vars.get('LIVEKIT_URL', ''),
-            'livekit_api_key': env_vars.get('LIVEKIT_API_KEY', ''),
-            'livekit_api_secret': env_vars.get('LIVEKIT_API_SECRET', ''),
-            'openai_api_key': env_vars.get('OPENAI_API_KEY', ''),
-            'openai_model': env_vars.get('OPENAI_MODEL', 'gpt-4-turbo-preview'),
-            'openai_voice': env_vars.get('OPENAI_VOICE', 'shimmer'),
-            'openai_temperature': float(env_vars.get('OPENAI_TEMPERATURE', '0.7')),
-            'deepgram_api_key': env_vars.get('DEEPGRAM_API_KEY', ''),
-            'deepgram_model': env_vars.get('DEEPGRAM_MODEL', 'nova-2'),
-            'deepgram_language': env_vars.get('DEEPGRAM_LANGUAGE', 'en-US'),
-            'deepgram_tier': env_vars.get('DEEPGRAM_TIER', 'enhanced'),
-            'enable_response_caching': env_vars.get('ENABLE_RESPONSE_CACHING', True),
-            'cache_ttl_seconds': int(env_vars.get('CACHE_TTL_SECONDS', '3600')),
-            'default_greeting': env_vars.get('DEFAULT_GREETING', "Hello! I am Diana, The Bridge House Health Admissions and Information Assistant. How can I help you?"),
-            'rag_embeddings_dimension': int(env_vars.get('RAG_EMBEDDINGS_DIMENSION', '1536')),
-            'rag_model': env_vars.get('RAG_MODEL', 'text-embedding-3-small'),
-            'system_prompt': env_vars.get('SYSTEM_PROMPT', '')
-        })
+        settings = cls(
+            livekit_url=env_vars.get('LIVEKIT_URL', ''),
+            livekit_api_key=env_vars.get('LIVEKIT_API_KEY', ''),
+            livekit_api_secret=env_vars.get('LIVEKIT_API_SECRET', ''),
+            openai_api_key=openai_key,
+            openai_model=env_vars.get('OPENAI_MODEL', 'gpt-4-turbo-preview'),
+            openai_voice=env_vars.get('OPENAI_VOICE', 'shimmer'),
+            openai_temperature=float(env_vars.get('OPENAI_TEMPERATURE', '0.7')),
+            deepgram_api_key=env_vars.get('DEEPGRAM_API_KEY', ''),
+            deepgram_model=env_vars.get('DEEPGRAM_MODEL', 'nova-2'),
+            deepgram_language=env_vars.get('DEEPGRAM_LANGUAGE', 'en-US'),
+            deepgram_tier=env_vars.get('DEEPGRAM_TIER', 'enhanced'),
+            enable_response_caching=env_vars.get('ENABLE_RESPONSE_CACHING', True),
+            cache_ttl_seconds=int(env_vars.get('CACHE_TTL_SECONDS', '3600')),
+            default_greeting=env_vars.get('DEFAULT_GREETING', "Hello! I am Diana, The Bridge House Health Admissions and Information Assistant. How can I help you?"),
+            rag_embeddings_dimension=int(env_vars.get('RAG_EMBEDDINGS_DIMENSION', '1536')),
+            rag_model=env_vars.get('RAG_MODEL', 'text-embedding-3-small'),
+            system_prompt=env_vars.get('SYSTEM_PROMPT', '')
+        )
         
         logger.debug(f"OpenAI API key in settings, length: {len(settings.openai_api_key)}")
         return settings

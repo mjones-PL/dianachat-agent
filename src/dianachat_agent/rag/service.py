@@ -12,9 +12,6 @@ from dotenv import load_dotenv
 
 from dianachat_agent.config.agent_config import AgentSettings
 
-# Load environment variables from .env file
-load_dotenv()
-
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
@@ -22,9 +19,19 @@ class RAGService:
     """Service for managing RAG operations."""
     
     def __init__(self, settings: AgentSettings):
+        """Initialize RAG service.
+        
+        Args:
+            settings: Application settings containing API keys and configurations
+        """
         self.settings = settings
         self.index: Optional[annoy.AnnoyIndex] = None
         self.paragraphs_by_id: Dict[int, str] = {}
+        
+        # Validate OpenAI API key
+        if not settings.openai_api_key:
+            raise ValueError("OpenAI API key is required but not found in settings")
+            
         self.client = AsyncOpenAI(api_key=settings.openai_api_key)
         self._embedding_cache: Dict[str, List[float]] = {}  # Cache for query embeddings
         self._embedding_dim = settings.rag_embeddings_dimension

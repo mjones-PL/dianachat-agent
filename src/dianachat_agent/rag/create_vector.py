@@ -111,7 +111,7 @@ async def create_vector_db(documents_dir: str = "docs"):
     Args:
         documents_dir: Directory containing documents to index
     """
-    settings = AgentSettings()
+    settings = AgentSettings.from_env()
     
     # Get the app root directory (2 levels up from this file)
     app_root = Path(__file__).parent.parent.parent.parent
